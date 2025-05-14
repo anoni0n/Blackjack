@@ -2,15 +2,14 @@ import java.util.ArrayList;
 
 public class Game {
 
-    private static ArrayList<Game> gameLog = new ArrayList<>();
-    private static String WLT = "";
+    private static final ArrayList<Game> gameLog = new ArrayList<>();
+    public static String WLT = "";
     private final ArrayList<String> dealerHand;
     private final ArrayList<String> playerHand;
     private Boolean win;
     private double currentWinRate;
 
     public Game(){
-        gameLog.add(this);
         dealerHand = new ArrayList<>();
         playerHand = new ArrayList<>();
     }
@@ -27,30 +26,39 @@ public class Game {
 
     public void logResult(Boolean win){
         this.win = win;
+        gameLog.add(this);
         int winCount = 0;
         int lossCount = 0;
         int tieCount = 0;
         for (Game game: gameLog){
-            if (win == null){
-                tieCount++;
-            }
-            else if (win){
+            if (game.isWin()){
                 winCount++;
             }
-            else {
+            else if (!game.isWin()){
                 lossCount++;
             }
-            currentWinRate = (double) winCount/(winCount+lossCount+tieCount);
+            else {
+                tieCount++;
+            }
         }
-        WLT = winCount+" - "+lossCount+" - "+tieCount;
+        currentWinRate = 100* (double) winCount/(winCount+lossCount+tieCount);
+        WLT = winCount+"-"+lossCount+"-"+tieCount;
     }
 
     private String winnerAsString(){
-        return (win) ? "Player" : "Dealer";
+        if (win == null){
+            return "Tie";
+        }
+        else if (win){
+            return "Player";
+        }
+        else {
+            return "Dealer";
+        }
     }
 
-    public boolean getWin(){
-        return win;
+    public Boolean isWin(){
+        return this.win;
     }
 
     public ArrayList<Game> getGameLog(){
@@ -62,8 +70,8 @@ public class Game {
         return "Game "+(gameLog.indexOf(this)+1)+":\n" +
                 "\nDealer Hand: "+dealerHand+
                 "\nPlayer Hand: "+playerHand+
-                "\nWinner: %s"+winnerAsString()+
-                "\nCurrent Win Rate: "+currentWinRate+"\n\n";
+                "\nWinner: "+winnerAsString()+
+                "\nCurrent Win Rate: "+String.format("%.2f%%",currentWinRate)+"\n\n";
 
     }
 

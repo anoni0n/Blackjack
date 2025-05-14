@@ -110,11 +110,16 @@ public class Blackjack {
 
         gameHistoryButton.addActionListener(e ->
         {
-            String log = "";
+            String log = "W-L-T: "+Game.WLT+"\n\n";
             for (Game game : game.getGameLog()){
                 log += game.toString();
             }
-            JOptionPane.showMessageDialog(null, log);
+            JTextArea textArea = new JTextArea(log);
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            scrollPane.setPreferredSize(new Dimension( 250, 250 ));
+            JOptionPane.showMessageDialog(null, scrollPane);
         });
 
         newGameButton.addActionListener(e -> {

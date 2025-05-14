@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.Objects;
 
 public class Card {
 
-    public static final Image HIDDEN_CARD_BACK = new ImageIcon(Card.class.getResource("./cards/BACK.png")).getImage();
+    public static final Image HIDDEN_CARD_BACK = new ImageIcon(Objects.requireNonNull(Card.class.getResource("./cards/BACK.png"))).getImage();
     private String value;
     private String suit;
     private Image image;
@@ -13,11 +14,15 @@ public class Card {
     public Card(String value, String suit){
         this.value = value;
         this.suit = suit;
-        this.image = new ImageIcon(getClass().getResource(this.getImagePath())).getImage();
+        this.image = new ImageIcon(Objects.requireNonNull(getClass().getResource(this.getImagePath()))).getImage();
     }
 
     public Image getImage(){
         return this.image;
+    }
+
+    public String getImagePath(){
+        return "./cards/"+toString()+".png";
     }
 
     public int getValue() {
@@ -36,10 +41,6 @@ public class Card {
 
     public void setSuit(String suit) {
         this.suit = suit;
-    }
-
-    public String getImagePath(){
-        return "./cards/"+toString()+".png";
     }
 
     @Override
