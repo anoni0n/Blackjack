@@ -23,7 +23,6 @@ public class Game {
         }
     }
 
-
     public void logResult(Boolean win){
         this.win = win;
         gameLog.add(this);
@@ -31,17 +30,17 @@ public class Game {
         int lossCount = 0;
         int tieCount = 0;
         for (Game game: gameLog){
-            if (game.isWin()){
-                winCount++;
-            }
-            else if (!game.isWin()){
-                lossCount++;
-            }
-            else {
+            if (game.isWin() == null){
                 tieCount++;
             }
+            else if (game.isWin()){
+                winCount++;
+            }
+            else {
+                lossCount++;
+            }
         }
-        currentWinRate = 100* (double) winCount/(winCount+lossCount+tieCount);
+        currentWinRate = 100 * (double) winCount/(winCount+lossCount+tieCount);
         WLT = winCount+"-"+lossCount+"-"+tieCount;
     }
 

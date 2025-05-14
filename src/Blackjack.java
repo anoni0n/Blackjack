@@ -104,7 +104,6 @@ public class Blackjack {
         buttonPanel.add(gameHistoryButton);
         frame.add(buttonPanel,BorderLayout.SOUTH);
 
-        game = new Game();
         startGame();
 
 
@@ -126,8 +125,10 @@ public class Blackjack {
             if (stayButton.isEnabled()){
                 game.logResult(false);
             }
-            this.frame.dispose();
-            Blackjack blackjack = new Blackjack();
+            hitButton.setEnabled(true);
+            stayButton.setEnabled(true);
+            startGame();
+            gamePanel.repaint();
         });
 
         hitButton.addActionListener(e -> {
@@ -152,6 +153,7 @@ public class Blackjack {
     }
 
     public void startGame(){
+        game = new Game();
         buildRandomizedDeck();
         dealStartingHands();
     }
