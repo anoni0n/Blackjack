@@ -7,8 +7,8 @@ public class Blackjack {
 
     private ArrayList<Card> deck;
     private Card hiddenCard;
-    private ArrayList<Card> dealerHand;
-    private ArrayList<Card> playerHand;
+    private ArrayList<Card> dealerHand = new ArrayList<>();
+    private ArrayList<Card> playerHand = new ArrayList<>();
     private int playerSum;
     private int playerAceCount;
 
